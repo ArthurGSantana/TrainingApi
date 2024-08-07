@@ -1,4 +1,11 @@
 
+using Microsoft.EntityFrameworkCore;
+using Training.Api.Infrastructure;
+using Training.Api.Interfaces.Repository;
+using Training.Api.Interfaces.Service;
+using Training.Api.Repositories;
+using Training.Api.Services;
+
 namespace Training.Api;
 
 public class Program
@@ -13,6 +20,17 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddDbContext<ConnectionContext>(options =>
+        {
+            options.UseNpgsql("Server=localhost;Database=Training;Trusted_Connection=True;User Id=postgres;Password=password;");
+        });
+
+        // Registering the repository
+        builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+        // Registering the service
+        builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
         var app = builder.Build();
 
