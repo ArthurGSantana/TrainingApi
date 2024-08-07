@@ -23,7 +23,7 @@ public class Program
 
         builder.Services.AddDbContext<ConnectionContext>(options =>
         {
-            options.UseNpgsql("Server=localhost;Database=Training;Trusted_Connection=True;User Id=postgres;Password=password;");
+            options.UseNpgsql("Server=localhost;Database=Training;User Id=postgres;Password=password;");
         });
 
         // Registering the repository

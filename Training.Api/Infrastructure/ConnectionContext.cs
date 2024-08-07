@@ -4,12 +4,12 @@ using Training.Api.Entities;
 
 namespace Training.Api.Infrastructure;
 
-public class ConnectionContext : DbContext
+public class ConnectionContext(DbContextOptions options) : DbContext(options)
 {
     public DbSet<Employee> Employee { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Server=localhost;Database=Training;Trusted_Connection=True;User Id=postgres;Password=password;");
+        optionsBuilder.UseNpgsql("Server=localhost;Database=Training;User Id=postgres;Password=password;");
     }
 }

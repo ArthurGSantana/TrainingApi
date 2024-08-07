@@ -1,7 +1,4 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Training.Api.Entities;
-using Training.Api.Interfaces;
 using Training.Api.Interfaces.Service;
 using Training.Api.Models;
 
