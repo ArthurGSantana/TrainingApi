@@ -9,14 +9,14 @@ namespace Training.Api.Security;
 
 public class TokenService
 {
-    public static string Generatetoken(Employee employee)
+    public static string GenerateToken(string employeeName)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey.Secret));
         var tokenConfig = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(
             [
-                new Claim(ClaimTypes.Name, employee.Name!),
+                new Claim(ClaimTypes.Name, employeeName),
             ]),
             Expires = DateTime.UtcNow.AddHours(1),
             SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)

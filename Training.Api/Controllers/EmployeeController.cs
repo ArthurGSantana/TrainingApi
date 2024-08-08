@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Training.Api.Interfaces.Service;
 using Training.Api.Models;
@@ -8,6 +9,7 @@ namespace Training.Api.Controllers
     [ApiController]
     public class EmployeeController(IEmployeeService _employeeService) : ControllerBase
     {
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -15,6 +17,7 @@ namespace Training.Api.Controllers
             return Ok(employees);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] EmployeeRequestDto employeeDto)
         {
@@ -22,6 +25,7 @@ namespace Training.Api.Controllers
             return Ok(employee);
         }
 
+        [Authorize]
         [HttpPost("/{employeeId}/upload")]
         public async Task<IActionResult> UploadPhoto(int employeeId, [FromForm] UploadPhotoRequestDto file)
         {
@@ -29,6 +33,7 @@ namespace Training.Api.Controllers
             return Ok(employee);
         }
 
+        [Authorize]
         [HttpGet("/{employeeId}/download")]
         public async Task<ActionResult> DownloadPhoto(int employeeId)
         {
