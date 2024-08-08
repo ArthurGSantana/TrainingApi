@@ -10,4 +10,5 @@ public interface IEmployeeService
     Task<List<EmployeeResponseDto>> ListAsync();
     Task<EmployeeResponseDto> CreateAsync(EmployeeRequestDto employee);
     Task<EmployeeResponseDto> UploadPhotoAsync(int employeeId, IFormFile file);
+    Task<byte[]> DownloadPhotoAsync(int employeeId);
 }

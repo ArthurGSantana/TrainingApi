@@ -28,5 +28,12 @@ namespace Training.Api.Controllers
             var employee = await _employeeService.UploadPhotoAsync(employeeId, file.Photo!);
             return Ok(employee);
         }
+
+        [HttpGet("/{employeeId}/download")]
+        public async Task<ActionResult> DownloadPhoto(int employeeId)
+        {
+            var dataBytes = await _employeeService.DownloadPhotoAsync(employeeId);
+            return File(dataBytes, "image/png");
+        }
     }
 }

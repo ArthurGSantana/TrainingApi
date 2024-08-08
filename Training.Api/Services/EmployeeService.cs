@@ -94,4 +94,16 @@ public class EmployeeService(IEmployeeRepository _employeeRepository) : IEmploye
 
         return path;
     }
+
+    public async Task<byte[]> DownloadPhotoAsync(int employeeId)
+    {
+        var employee = await _employeeRepository.GetAsync(employeeId);
+
+        if (employee == null || string.IsNullOrEmpty(employee.Photo))
+        {
+            throw new Exception("Employee not found");
+        }
+
+        return await File.ReadAllBytesAsync(employee.Photo);
+    }
 }
