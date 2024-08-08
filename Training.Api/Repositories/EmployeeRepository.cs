@@ -15,8 +15,19 @@ public class EmployeeRepository(ConnectionContext _context) : IEmployeeRepositor
         return employee;
     }
 
+    public async Task<Employee?> GetAsync(int employeeId)
+    {
+        return await _context.Employee.FindAsync(employeeId);
+    }
+
     public Task<List<Employee>> ListAsync()
     {
         return _context.Employee.ToListAsync();
+    }
+
+    public void Update(Employee employee)
+    {
+        _context.Employee.Update(employee);
+        _context.SaveChanges();
     }
 }

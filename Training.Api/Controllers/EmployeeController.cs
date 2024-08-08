@@ -21,5 +21,12 @@ namespace Training.Api.Controllers
             var employee = await _employeeService.CreateAsync(employeeDto);
             return Ok(employee);
         }
+
+        [HttpPost("/{employeeId}/upload")]
+        public async Task<IActionResult> UploadPhoto(int employeeId, [FromForm] UploadPhotoRequestDto file)
+        {
+            var employee = await _employeeService.UploadPhotoAsync(employeeId, file.Photo!);
+            return Ok(employee);
+        }
     }
 }

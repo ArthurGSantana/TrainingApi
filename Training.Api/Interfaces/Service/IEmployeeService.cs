@@ -6,6 +6,8 @@ namespace Training.Api.Interfaces.Service;
 
 public interface IEmployeeService
 {
-    Task<EmployeeResponseDto> CreateAsync(EmployeeRequestDto employee);
+    Task<EmployeeResponseDto> GetAsync(int employeeId);
     Task<List<EmployeeResponseDto>> ListAsync();
+    Task<EmployeeResponseDto> CreateAsync(EmployeeRequestDto employee);
+    Task<EmployeeResponseDto> UploadPhotoAsync(int employeeId, IFormFile file);
 }
