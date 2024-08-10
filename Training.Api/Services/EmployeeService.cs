@@ -3,10 +3,11 @@ using Training.Api.Entities;
 using Training.Api.Interfaces.Repository;
 using Training.Api.Interfaces.Service;
 using Training.Api.DTOs;
+using AutoMapper;
 
 namespace Training.Api.Services;
 
-public class EmployeeService(IEmployeeRepository _employeeRepository) : IEmployeeService
+public class EmployeeService(IEmployeeRepository _employeeRepository, IMapper _mapper) : IEmployeeService
 {
     public async Task<EmployeeResponseDto> CreateAsync(EmployeeRequestDto employeeRequestDto)
     {
@@ -14,14 +15,7 @@ public class EmployeeService(IEmployeeRepository _employeeRepository) : IEmploye
 
         await _employeeRepository.CreateAsync(employee);
 
-        return new EmployeeResponseDto
-        {
-            Id = employee.Id,
-            Name = employee.Name,
-            Department = employee.Department,
-            Age = employee.Age,
-            Photo = employee.Photo
-        };
+        return _mapper.Map<EmployeeResponseDto>(employee);
     }
 
     public async Task<EmployeeResponseDto> GetAsync(int employeeId)
@@ -33,28 +27,14 @@ public class EmployeeService(IEmployeeRepository _employeeRepository) : IEmploye
             throw new Exception("Employee not found");
         }
 
-        return new EmployeeResponseDto
-        {
-            Id = employee.Id,
-            Name = employee.Name,
-            Department = employee.Department,
-            Age = employee.Age,
-            Photo = employee.Photo
-        };
+        return _mapper.Map<EmployeeResponseDto>(employee);
     }
 
     public async Task<List<EmployeeResponseDto>> ListByFilterAsync(int pageNumber, int pageSize)
     {
         var employees = await _employeeRepository.ListByFilterAsync(pageNumber, pageSize);
 
-        return employees.Select(employee => new EmployeeResponseDto
-        {
-            Id = employee.Id,
-            Name = employee.Name,
-            Department = employee.Department,
-            Age = employee.Age,
-            Photo = employee.Photo
-        }).ToList();
+        return employees.Select(employee => _mapper.Map<EmployeeResponseDto>(employee)).ToList();
     }
 
     public async Task<EmployeeResponseDto> UploadPhotoAsync(int employeeId, IFormFile Photo)
@@ -72,14 +52,7 @@ public class EmployeeService(IEmployeeRepository _employeeRepository) : IEmploye
 
         _employeeRepository.Update(employee);
 
-        return new EmployeeResponseDto
-        {
-            Id = employee.Id,
-            Name = employee.Name,
-            Department = employee.Department,
-            Age = employee.Age,
-            Photo = employee.Photo
-        };
+        return _mapper.Map<EmployeeResponseDto>(employee);
     }
 
     private async Task<string> SavePhotoAsync(IFormFile file)

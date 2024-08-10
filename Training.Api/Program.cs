@@ -1,13 +1,14 @@
 
 using System.Text;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Training.Api.Infrastructure;
 using Training.Api.Interfaces.Repository;
 using Training.Api.Interfaces.Service;
+using Training.Api.Mapping;
 using Training.Api.Repositories;
 using Training.Api.Security;
 using Training.Api.Services;
@@ -23,6 +24,16 @@ public class Program
         // Add services to the container.
 
         builder.Services.AddControllers();
+
+        // Registering the automapper
+        var mapperConfig = new MapperConfiguration(mc =>
+        {
+            mc.AddProfile(new MappingProfile());
+        });
+
+        IMapper mapper = mapperConfig.CreateMapper();
+        builder.Services.AddSingleton(mapper);
+
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
 
