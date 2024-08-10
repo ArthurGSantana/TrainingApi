@@ -25,6 +25,12 @@ public class EmployeeRepository(ConnectionContext _context) : IEmployeeRepositor
         return _context.Employee.ToListAsync();
     }
 
+    public Task<List<Employee>> ListByFilterAsync(int pageNumber, int pageSize)
+    {
+        var skip = (pageNumber - 1) * pageSize;
+        return _context.Employee.Skip(skip).Take(pageSize).ToListAsync();
+    }
+
     public void Update(Employee employee)
     {
         _context.Employee.Update(employee);

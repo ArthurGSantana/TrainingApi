@@ -43,9 +43,9 @@ public class EmployeeService(IEmployeeRepository _employeeRepository) : IEmploye
         };
     }
 
-    public async Task<List<EmployeeResponseDto>> ListAsync()
+    public async Task<List<EmployeeResponseDto>> ListByFilterAsync(int pageNumber, int pageSize)
     {
-        var employees = await _employeeRepository.ListAsync();
+        var employees = await _employeeRepository.ListByFilterAsync(pageNumber, pageSize);
 
         return employees.Select(employee => new EmployeeResponseDto
         {

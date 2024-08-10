@@ -9,17 +9,16 @@ namespace Training.Api.Controllers
     [ApiController]
     public class EmployeeController(IEmployeeService _employeeService) : ControllerBase
     {
-        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> ListByFilterAsync(int pageNumber, int pageSize)
         {
-            var employees = await _employeeService.ListAsync();
+            var employees = await _employeeService.ListByFilterAsync(pageNumber, pageSize);
             return Ok(employees);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] EmployeeRequestDto employeeDto)
+        public async Task<IActionResult> CreateAsync([FromBody] EmployeeRequestDto employeeDto)
         {
             var employee = await _employeeService.CreateAsync(employeeDto);
             return Ok(employee);
@@ -27,7 +26,7 @@ namespace Training.Api.Controllers
 
         [Authorize]
         [HttpPost("/{employeeId}/upload")]
-        public async Task<IActionResult> UploadPhoto(int employeeId, [FromForm] UploadPhotoRequestDto file)
+        public async Task<IActionResult> UploadPhotoAsync(int employeeId, [FromForm] UploadPhotoRequestDto file)
         {
             var employee = await _employeeService.UploadPhotoAsync(employeeId, file.Photo!);
             return Ok(employee);
@@ -35,7 +34,7 @@ namespace Training.Api.Controllers
 
         [Authorize]
         [HttpGet("/{employeeId}/download")]
-        public async Task<ActionResult> DownloadPhoto(int employeeId)
+        public async Task<ActionResult> DownloadPhotoAsync(int employeeId)
         {
             var dataBytes = await _employeeService.DownloadPhotoAsync(employeeId);
             return File(dataBytes, "image/png");
