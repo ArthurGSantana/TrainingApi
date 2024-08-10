@@ -1,6 +1,6 @@
 using System;
 using Training.Api.Entities;
-using Training.Api.Models;
+using Training.Api.DTOs;
 
 namespace Training.Api.Interfaces.Service;
 

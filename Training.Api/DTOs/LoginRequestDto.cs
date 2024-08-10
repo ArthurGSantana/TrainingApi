@@ -1,6 +1,6 @@
 using System;
 
-namespace Training.Api.Models;
+namespace Training.Api.DTOs;
 
 public class LoginRequestDto
 {

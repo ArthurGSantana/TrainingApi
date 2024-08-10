@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Training.Api.Interfaces.Service;
-using Training.Api.Models;
+using Training.Api.DTOs;
 
 namespace Training.Api.Controllers;
 [Route("api/[controller]")]

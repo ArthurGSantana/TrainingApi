@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Training.Api.Entities;
-using Training.Api.Models;
+using Training.Api.DTOs;
 using Training.Api.Security;
 
 namespace Training.Api.Controllers;

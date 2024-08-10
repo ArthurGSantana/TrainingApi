@@ -2,7 +2,7 @@ using System;
 using Training.Api.Entities;
 using Training.Api.Interfaces.Repository;
 using Training.Api.Interfaces.Service;
-using Training.Api.Models;
+using Training.Api.DTOs;
 
 namespace Training.Api.Services;
 
