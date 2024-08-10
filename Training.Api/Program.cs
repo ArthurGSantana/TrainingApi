@@ -74,6 +74,24 @@ public class Program
         // Registering the service
         builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(name: "MyPolicy",
+                cors =>
+                {
+
+                    List<string> allowedOrigins = new List<string>();
+
+                    // Debug, Development Environment Allow for HTTP
+                    if (builder.Environment.IsDevelopment())
+                    {
+                        allowedOrigins.Add("http://localhost:4200");
+                    }
+
+                    cors.WithOrigins(allowedOrigins.ToArray()).SetIsOriginAllowedToAllowWildcardSubdomains().AllowAnyHeader().AllowAnyMethod();
+                });
+        });
+
         // Registering Authentication
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
         {
@@ -105,11 +123,12 @@ public class Program
 
         app.UseHttpsRedirection();
 
-        app.UseAuthentication();
-        app.UseAuthorization();
-
+        app.UseCors("MyPolicy");
 
         app.MapControllers();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         app.Run();
     }
